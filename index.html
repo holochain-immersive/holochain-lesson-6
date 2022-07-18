@@ -148,6 +148,7 @@
         <section language="markdown" animate="by-line with-ancestry">
           ### Validation Workflow
 
+          - Validation needs to be deterministic: same result no matter who runs it and when.
           - After an action is committed, it is transformed into different DHT Operations (DHT Ops)
           - Then, those DHT Ops are published to the different neighborhoods in the DHT
           - When those nodes receive that publish, they add it to their validation queue
@@ -155,6 +156,12 @@
               - All other nodes can verify that the bad agent is behaving badly
               - They then disconnect from the bad agent
             - If the validation succeeds, the node starts to serve that record to DHT queries (get, get_links, etc.)
+
+          ### Validation callback function context
+
+          - The function `validate` is called in two contexts
+            1. The author validates
+            2. All prospective hosts of the DHT Op validate  
         </section>
 
         <section language="markdown" animate="by-line with-ancestry" style="font-size: 16px;">
@@ -172,52 +179,85 @@
         <section language="markdown" animate="by-line with-ancestry">
           ### System Validation
 
+          - Does not depend on your application code
           - Holochain enforces some system level validations across all apps
-            - Source chains can't be forked
-            - All signatures must be signed by their author
-            - Timestamp and sequence number for the actions must be incremental
-            - Zome ID
+            - Actions
+              - Source chains can't be forked
+              - All actions must be signed by their author
+              - Timestamp and sequence number for the actions must be incremental
+              - If the action is accompanied by an entry, the entry hash in the action is correct
+            - Entries
+              - The entry byte array can be deserialized to the appropriate struct
         </section>
 
         <section language="markdown" animate="by-line with-ancestry">
-          ### Integrity Zomes
+          ### App Validation
 
-          - Integrity zomes declare which moves are valid and not valid in a happ
+          - Validation rules for a given entry or link type must go in the same zome as the type definition
+          - Private entries cannot be validated
           - Callback: `validate(dht_op: Op)`
+
+          <fragment animate="by-line with-ancestry separate-comments balanced">
+            <pre>
+              <code class="rust" data-noescape>
+  #[hdk_extern]
+  pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
+    // Right now there is bunch of boilerplate here that's going to be replaced in the next version 
+  }
+              </code>
+            </pre>
+          </fragment>
+
           - Three results possible:
             1. Valid
             2. Invalid: it specifies the reason why it failed
             3. Unresolved dependencies: Not enough data to complete the validation
-          - Must be deterministic
-            - There are special gets: `must_get`
-            - `get_links` is forbidden
-            - `get_agent_activity` bounded by action hashes
-        </section>
-
-        <section language="markdown" animate="by-line with-ancestry">
-          ### Validation callback function context
-
-          - The function is called in two contexts
-            1. When committing an action, the author itself will run the validation callback to make sure their commits
-          follow the rules
-            2. When receiving a publish for a DHT Op, the receiving agent will run the validation callback. If it returns
-          valid, then that node starts serving that DHT Op
-
         </section>
 
         <section language="markdown" animate="by-line with-ancestry">
           ### Validation challenges
 
-          - Things that can't be considered during validation, without "____ing"
-            - links
-            - updates
-            - mutes
-          - Challenging because these items are inconsistent over time, and therefore can't be collected deterministically/consistently by two different nodes
-          - "___ing"
-            - Deterministically defining some set of actions (through a combination of naming their hashes explicitly, and following the named hashes they reference) to discover the links, updates, and mutes
+          - Non-deterministic queries can't be considered during validation
+            - `get` and `get_details` are forbidden 
+              - They attempt to return a current list of updates and deletes
+            - `get_links` is forbidden
+            - `get_agent_activity` is forbidden unless bounded by action hashes
+          - Deterministic alternatives:
+            - `must_get_entry`
+              - Only returns the entry, not its action
+              - Never returns `None`, rather the validation has unresolved dependencies
+            - `must_get_action`
+              - Only returns the action
+              - Never returns `None`, rather the validation has unresolved dependencies
+            - `must_get_valid_record`
+              - Returns the record
+              - Never returns `None`, rather the validation has unresolved dependencies
+        </section>
+
+
+        <section >
+          <fragment language="markdown" animate="by-line with-ancestry">
+          ### Genesis Self-Check
+
+          - Callback executed when the cell is instantiated
+          - If it fails, the app for that cell will fail to install
+        </fragment>
+        <fragment animate="by-line with-ancestry separate-comments balanced">
+          <pre>
+            <code class="rust" data-noescape>
+#[hdk_extern]
+pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;ValidateCallbackResult&gt; {
+    // Check data.agent_key, data.membrane_proof
+}
+            </code>
+          </pre>
+        </fragment>
 
         </section>
 
+        <section>
+          <h1>That's it!</h1>
+        </section>
       </div>
     </div>
 
