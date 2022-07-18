@@ -20,6 +20,18 @@
         --r-heading-margin: 20px 0 12px 0;
       }
 
+      section {
+        top: 10px !important;
+      }
+
+      .hljs-keyword {
+        color: #817eed !important;
+      }
+
+      .hljs-literal {
+        color: #ff90b8 !important;
+      }
+
       .slides {
         width: 75% !important;
       }
@@ -165,6 +177,45 @@
             - All signatures must be signed by their author
             - Timestamp and sequence number for the actions must be incremental
             - Zome ID
+        </section>
+
+        <section language="markdown" animate="by-line with-ancestry">
+          ### Integrity Zomes
+
+          - Integrity zomes declare which moves are valid and not valid in a happ
+          - Callback: `validate(dht_op: Op)`
+          - Three results possible:
+            1. Valid
+            2. Invalid: it specifies the reason why it failed
+            3. Unresolved dependencies: Not enough data to complete the validation
+          - Must be deterministic
+            - There are special gets: `must_get`
+            - `get_links` is forbidden
+            - `get_agent_activity` bounded by action hashes
+        </section>
+
+        <section language="markdown" animate="by-line with-ancestry">
+          ### Validation callback function context
+
+          - The function is called in two contexts
+            1. When committing an action, the author itself will run the validation callback to make sure their commits
+          follow the rules
+            2. When receiving a publish for a DHT Op, the receiving agent will run the validation callback. If it returns
+          valid, then that node starts serving that DHT Op
+
+        </section>
+
+        <section language="markdown" animate="by-line with-ancestry">
+          ### Validation challenges
+
+          - Things that can't be considered during validation, without "____ing"
+            - links
+            - updates
+            - mutes
+          - Challenging because these items are inconsistent over time, and therefore can't be collected deterministically/consistently by two different nodes
+          - "___ing"
+            - Deterministically defining some set of actions (through a combination of naming their hashes explicitly, and following the named hashes they reference) to discover the links, updates, and mutes
+
         </section>
 
       </div>
