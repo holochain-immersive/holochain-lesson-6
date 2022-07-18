@@ -1,194 +1,217 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    />
-    <meta name="Description" content="Put your description here." />
-    <base href="/" />
 
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background-color: #ededed;
-        --r-main-font-size: 24px;
-        --r-heading-margin: 20px 0 12px 0;
-      }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="Description" content="Put your description here." />
+  <base href="/" />
 
-      .slides {
-        width: 75% !important;
-      }
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+      --r-main-font-size: 24px;
+      --r-heading-margin: 20px 0 12px 0;
+    }
 
-      .container {
-        top: 0 !important;
-        display: flex !important;
-        flex-direction: row !important;
-      }
-      .column {
-        display: flex;
-        flex-direction: column;
-      }
-      .row {
-        display: flex;
-        flex-direction: row;
-      }
+    section {
+      top: 10px !important;
+    }
 
-      ul {
-        width: 100%;
-      }
+    .hljs-keyword {
+      color: #817eed !important;
+    }
 
-      section {
-        text-align: left;
-      }
+    .hljs-literal {
+      color: #ff90b8 !important;
+    }
 
-      .popover {
-        position: absolute;
-        background-color: #4d4d4d;
-        padding: 1rem 2rem;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        border-radius: 10px;
-        width: auto;
-        transform: translate(16px, -15px);
-      }
-      .popover:after {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: -8px;
-        border-style: solid;
-        border-width: 18px 12px 0;
-        border-color: #4d4d4d transparent;
-        display: block;
-        width: 0;
-        z-index: 1;
-        transform: translate(-50%, 50%) rotate(90deg);
-      }
+    .slides {
+      width: 75% !important;
+    }
 
-      .popover .hljs-meta,
-      .popover .hljs-class,
-      .popover .hljs-symbol,
-      .popover .hljs-keyword,
-      .popover .hljs-string,
-      .popover .hljs-title {
-        color: rgb(221, 221, 221) !important;
-        font-weight: normal;
-      }
+    .container {
+      top: 0 !important;
+      display: flex !important;
+      flex-direction: row !important;
+    }
 
-      .reveal pre code {
-        max-height: 800px !important;
-      }
+    .column {
+      display: flex;
+      flex-direction: column;
+    }
 
-      .dna {
-        background-color: green;
-      }
-      .zome {
-        background-color: blue;
-      }
-      .coordinator-zomes {
-        background-color: lightblue;
-      }
+    .row {
+      display: flex;
+      flex-direction: row;
+    }
 
-      .dna,
-      .cell,
-      .zome,
-      .coordinator-zomes,
-      .source-chain,
-      .happ-bundle,
-      .box,
-      .dna-bundle,
-      .dht-shard,
-      .conductor,
-      .happ {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        border-width: 3px;
-        border-color: rgb(209, 209, 209);
-        border-style: solid;
-      }
-    </style>
-    <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+    ul {
+      width: 100%;
+    }
 
-    <link
-      rel="stylesheet"
-      href="/node_modules/reveal.js/dist/theme/black.css"
-    />
-    <link
-      rel="stylesheet"
-      href="/node_modules/reveal.js/plugin/highlight/monokai.css"
-    />
-    <title>Lesson 6</title>
-  </head>
+    section {
+      text-align: left;
+    }
 
-  <body>
-    <div class="reveal"> 
-      <div class="slides">
-        <section>
-          <h1>Validation Rules</h1>
-        </section>
+    .popover {
+      position: absolute;
+      background-color: #4d4d4d;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      border-radius: 10px;
+      width: auto;
+      transform: translate(16px, -15px);
+    }
 
-        <section language="markdown" animate="by-line with-ancestry">
-          ### Validation Workflow
+    .popover:after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: -8px;
+      border-style: solid;
+      border-width: 18px 12px 0;
+      border-color: #4d4d4d transparent;
+      display: block;
+      width: 0;
+      z-index: 1;
+      transform: translate(-50%, 50%) rotate(90deg);
+    }
 
-          - After an action is committed, it is transformed into different DHT Operations (DHT Ops)
-          - Then, those DHT Ops are published to the different neighborhoods in the DHT
-          - When those nodes receive that publish, they add it to their validation queue
-            - If the validation fails, those nodes produce warrants that get gossiped throughout the network
-              - All other nodes can verify that the bad agent is behaving badly
-              - They then disconnect from the bad agent
-            - If the validation succeeds, the node starts to serve that record to DHT queries (get, get_links, etc.)
-        </section>
+    .popover .hljs-meta,
+    .popover .hljs-class,
+    .popover .hljs-symbol,
+    .popover .hljs-keyword,
+    .popover .hljs-string,
+    .popover .hljs-title {
+      color: rgb(221, 221, 221) !important;
+      font-weight: normal;
+    }
 
-        <section language="markdown" animate="by-line with-ancestry" style="font-size: 16px;">
-          ### DHT Ops
+    .reveal pre code {
+      max-height: 800px !important;
+    }
 
-          | Chain Action | DhtOp Name | Targeted hash basis | Payload | Metadata |
-          |--------------|------------|---------------------|---------|----------|
-          |create_entry(entry)| RegisterAgentActivity<br/> StoreRecord<br/> StoreEntry | Author's public key<br/> Hash of the action <br/> Hash of the entry | Action <br/> Record <br/> Record | Hash of the action <br/> -  <br/> - |
-          |update_entry(original_action_hash, new_entry)| RegisterAgentActivity<br/> StoreRecord<br/> StoreEntry<br/> RegisterEntryUpdate<br/> RegisterRecordUpdate | Author's public key<br/> Hash of the action <br/> Hash of the entry <br/> Hash of the original entry <br/> Hash of the original action | New action <br/> New Record <br/> New record <br/> New action <br/> New action | Hash of the action <br/> - <br/> New entry updates old entry <br/> Old entry is updated to new entry <br/> Old action is updated to new action |
-          |delete_entry(action_hash)| RegisterAgentActivity<br/> StoreRecord<br/> RegisterEntryDelete<br/> RegisterRecordDelete| Author's public key <br/> Hash of the new action <br/> Hash of the deleted entry <br/> Hash of the deleted action | New action <br/> New Record <br/> New action <br/> New action | Hash of the action <br/> - <br/> Old entry deleted by new action <br/> Old action deleted by new action |
-          |create_link(base, target, tag)| RegisterAgentActivity<br/> StoreRecord<br/> RegisterCreateLink| Author's public key <br/> Hash of the new action <br/> "Base" hash | Action <br/> Record <br/> Action |  Hash of the action <br/> - <br/> Link from the base to the target hash|
-          |delete_link(create_link_action_hash)| RegisterAgentActivity<br/> StoreRecord<br/> RegisterDeleteLink | Author's public key <br/> Hash of the new action <br/> Hash of the deleted create link action hash | Action <br/> Record <br/> Action | Hash of the action <br/> - <br/> Deleted link sent to tombstone | 
-        </section>
+    .dna {
+      background-color: green;
+    }
 
-        <section language="markdown" animate="by-line with-ancestry">
-          ### System Validation
+    .zome {
+      background-color: blue;
+    }
 
-          - Holochain enforces some system level validations across all apps
-            - Source chains can't be forked
-            - All signatures must be signed by their author
-            - Timestamp and sequence number for the actions must be incremental
-            - Zome ID
-        </section>
+    .coordinator-zomes {
+      background-color: lightblue;
+    }
 
-      </div>
+    .dna,
+    .cell,
+    .zome,
+    .coordinator-zomes,
+    .source-chain,
+    .happ-bundle,
+    .box,
+    .dna-bundle,
+    .dht-shard,
+    .conductor,
+    .happ {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border-width: 3px;
+      border-color: rgb(209, 209, 209);
+      border-style: solid;
+    }
+  </style>
+  <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+
+  <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/black.css" />
+  <link rel="stylesheet" href="/node_modules/reveal.js/plugin/highlight/monokai.css" />
+  <title>Lesson 6</title>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section>
+        <h1>Validation Rules</h1>
+      </section>
+
+      <section language="markdown" animate="by-line with-ancestry">
+        ### Validation Workflow
+
+        - After an action is committed, it is transformed into different DHT Operations (DHT Ops)
+        - Then, those DHT Ops are published to the different neighborhoods in the DHT
+        - When those nodes receive that publish, they add it to their validation queue
+        - If the validation fails, those nodes produce warrants that get gossiped throughout the network
+        - All other nodes can verify that the bad agent is behaving badly
+        - They then disconnect from the bad agent
+        - If the validation succeeds, the node starts to serve that record to DHT queries (get, get_links, etc.)
+      </section>
+
+      <section language="markdown" animate="by-line with-ancestry" style="font-size: 16px;">
+        ### DHT Ops
+
+        | Chain Action | DhtOp Name | Targeted hash basis | Payload | Metadata |
+        |--------------|------------|---------------------|---------|----------|
+        |create_entry(entry)| RegisterAgentActivity<br /> StoreRecord<br /> StoreEntry | Author's public key<br /> Hash
+        of the action <br /> Hash of the entry | Action <br /> Record <br /> Record | Hash of the action <br /> - <br />
+        - |
+        |update_entry(original_action_hash, new_entry)| RegisterAgentActivity<br /> StoreRecord<br /> StoreEntry<br />
+        RegisterEntryUpdate<br /> RegisterRecordUpdate | Author's public key<br /> Hash of the action <br /> Hash of the
+        entry <br /> Hash of the original entry <br /> Hash of the original action | New action <br /> New Record <br />
+        New record <br /> New action <br /> New action | Hash of the action <br /> - <br /> New entry updates old entry
+        <br /> Old entry is updated to new entry <br /> Old action is updated to new action |
+        |delete_entry(action_hash)| RegisterAgentActivity<br /> StoreRecord<br /> RegisterEntryDelete<br />
+        RegisterRecordDelete| Author's public key <br /> Hash of the new action <br /> Hash of the deleted entry <br />
+        Hash of the deleted action | New action <br /> New Record <br /> New action <br /> New action | Hash of the
+        action <br /> - <br /> Old entry deleted by new action <br /> Old action deleted by new action |
+        |create_link(base, target, tag)| RegisterAgentActivity<br /> StoreRecord<br /> RegisterCreateLink| Author's
+        public key <br /> Hash of the new action <br /> "Base" hash | Action <br /> Record <br /> Action | Hash of the
+        action <br /> - <br /> Link from the base to the target hash|
+        |delete_link(create_link_action_hash)| RegisterAgentActivity<br /> StoreRecord<br /> RegisterDeleteLink |
+        Author's public key <br /> Hash of the new action <br /> Hash of the deleted create link action hash | Action
+        <br /> Record <br /> Action | Hash of the action <br /> - <br /> Deleted link sent to tombstone |
+      </section>
+
+      <section language="markdown" animate="by-line with-ancestry">
+        ### System Validation
+
+        - Holochain enforces some system level validations across all apps
+        - Source chains can't be forked
+        - All signatures must be signed by their author
+        - Timestamp and sequence number for the actions must be incremental
+        - Zome ID
+      </section>
+
     </div>
+  </div>
 
-    <script type="module">
-      import Reveal from "reveal.js";
-      import Markdown from "reveal.js/plugin/markdown/markdown.esm.js";
-      import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
-      import RevealNotes from "reveal.js/plugin/notes/notes.esm.js";
-      import RevealAnimateFragments from "reveal.js-animate-fragments";
-      import RevealEliminateEmptyLines from "reveal.js-eliminate-empty-lines";
+  <script type="module">
+    import Reveal from "reveal.js";
+    import Markdown from "reveal.js/plugin/markdown/markdown.esm.js";
+    import RevealHighlight from "reveal.js/plugin/highlight/highlight.esm.js";
+    import RevealNotes from "reveal.js/plugin/notes/notes.esm.js";
+    import RevealAnimateFragments from "reveal.js-animate-fragments";
+    import RevealEliminateEmptyLines from "reveal.js-eliminate-empty-lines";
 
-      let deck = new Reveal({
-        transition: "none",
-        plugins: [
-          Markdown,
-          RevealHighlight,
-          RevealNotes,
-          RevealAnimateFragments,
-          RevealEliminateEmptyLines
-        ],
-      });
-      deck.initialize();
-    </script>
-  </body>
+    let deck = new Reveal({
+      transition: "none",
+      plugins: [
+        Markdown,
+        RevealHighlight,
+        RevealNotes,
+        RevealAnimateFragments,
+        RevealEliminateEmptyLines
+      ],
+    });
+    deck.initialize();
+  </script>
+</body>
+
 </html>
