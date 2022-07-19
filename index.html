@@ -181,27 +181,28 @@
 
         <section>
           <fragment language="markdown" animate="by-line with-ancestry">
-          ### App Validation
+            ### App Validation
 
-          - Validation rules for a given entry or link type must go in the same zome as the type definition
-          - Private entries cannot be validated
-          - Callback: `validate(dht_op: Op)`
-        </fragment>
+            - Validation rules for a given entry or link type must go in the same zome as the type definition
+            - Private entries cannot be validated
+            - Callback: `validate(dht_op: Op)`
+          </fragment>
+
           <fragment animate="by-line with-ancestry separate-comments balanced">
             <pre>              <code class="rust" data-noescape="">
-  #[hdk_extern]
-  pub fn validate(op: Op) -&gt; ExternResult&lt;ValidateCallbackResult&gt; {
-    // Right now there is bunch of boilerplate here that's going to be replaced in the next version 
-  }
+#[hdk_extern]
+pub fn validate(op: Op) -&gt; ExternResult&lt;ValidateCallbackResult&gt; {
+  // Right now there is bunch of boilerplate here that's going to be replaced in the next version 
+}
               </code>
             </pre>
           </fragment>
-          <fragment language="markdown" animate="by-line with-ancestry">
 
-          - Three results possible:
-            1. Valid
-            2. Invalid: it specifies the reason why it failed
-            3. Unresolved dependencies: Not enough data to complete the validation
+          <fragment language="markdown" animate="by-line with-ancestry">
+            - Three results possible:
+              1. Valid
+              2. Invalid: it specifies the reason why it failed
+              3. Unresolved dependencies: Not enough data to complete the validation
           </fragment>
 
         </section>
