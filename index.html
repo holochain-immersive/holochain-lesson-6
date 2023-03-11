@@ -166,7 +166,7 @@
             2. All prospective hosts of the DHT Op validate  
         </section>
 
-        <section language="markdown" animate="by-line with-ancestry" style="font-size: 16px;">
+        <section language="markdown" animate="by-line with-ancestry" style="font-size: 16px;width: 110%;margin-left:-5%;">
           ## DHT Ops
           <table>
             <thead>
@@ -180,88 +180,270 @@
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td rowspan="3">
                   <div class="fragment">create_entry(entry)</div>
                 </td>
-                <td>
-                  <div class="fragment">RegisterAgentActivity<br> StoreRecord<br> StoreEntry</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td>
-                  <div class="fragment">Author's public key<br> Hash of the action <br> Hash of the entry</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Author's public key</div>
                 </td>
-                <td>
-                  <div class="fragment">Action <br> Record <br> Record</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Action</div>
                 </td>
-                <td>
-                  <div class="fragment">Hash of the action <br> -  <br> -</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreRecord</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
                 <td>
+                  <div class="fragment">StoreEntry</div>
+                </td>
+                <td>
+                  <div class="fragment">Hash of the entry</div>
+                </td>
+                <td>
+                  <div class="fragment">Record</div>
+                </td>
+                <td>
+                  <div class="fragment">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="5">
                   <div class="fragment">update_entry(original_action_hash, new_entry)</div>
                 </td>
-                <td>
-                  <div class="fragment">RegisterAgentActivity<br> StoreRecord<br> StoreEntry<br> RegisterEntryUpdate<br> RegisterRecordUpdate</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td>
-                  <div class="fragment">Author's public key<br> Hash of the action <br> Hash of the entry <br> Hash of the original entry <br> Hash of the original action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Author's public key</div>
                 </td>
-                <td>
-                  <div class="fragment">New action <br> New Record <br> New record <br> New action <br> New action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Action</div>
                 </td>
-                <td>
-                  <div class="fragment">Hash of the action <br> - <br> New entry updates old entry <br> Old entry is updated to new entry <br> Old action is updated to new action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreRecord</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreEntry</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the entry</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New entry updates old entry</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterEntryUpdate</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the original entry</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Old entry is updated to new entry</div>
                 </td>
               </tr>
               <tr>
                 <td>
+                  <div class="fragment">RegisterRecordUpdate</div>
+                </td>
+                <td>
+                  <div class="fragment">Hash of the original action</div>
+                </td>
+                <td>
+                  <div class="fragment">New action</div>
+                </td>
+                <td>
+                  <div class="fragment">Old action is updated to new action</div>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="4">
                   <div class="fragment">delete_entry(action_hash)</div>
                 </td>
-                <td>
-                  <div class="fragment">RegisterAgentActivity<br> StoreRecord<br> RegisterEntryDelete<br> RegisterRecordDelete</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td>
-                  <div class="fragment">Author's public key <br> Hash of the new action <br> Hash of the deleted entry <br> Hash of the deleted action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Author's public key</div>
                 </td>
-                <td>
-                  <div class="fragment">New action <br> New Record <br> New action <br> New action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Action</div>
                 </td>
-                <td>
-                  <div class="fragment">Hash of the action <br> - <br> Old entry deleted by new action <br> Old action deleted by new action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreRecord</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the new action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterEntryDelete</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the deleted entry</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">New Action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Old entry deleted by new action</div>
                 </td>
               </tr>
               <tr>
                 <td>
+                  <div class="fragment">RegisterRecordDelete</div>
+                </td>
+                <td>
+                  <div class="fragment">Hash of the deleted action</div>
+                </td>
+                <td>
+                  <div class="fragment">New Action</div>
+                </td>
+                <td>
+                  <div class="fragment">Old action deleted by new action</div>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="3">
                   <div class="fragment">create_link(base, target, tag)</div>
                 </td>
-                <td>
-                  <div class="fragment">RegisterAgentActivity<br> StoreRecord<br> RegisterCreateLink</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td>
-                  <div class="fragment">Author's public key <br> Hash of the new action <br> "Base" hash</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Author's public key</div>
                 </td>
-                <td>
-                  <div class="fragment">Action <br> Record <br> Action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Action</div>
                 </td>
-                <td>
-                  <div class="fragment">Hash of the action <br> - <br> Link from the base to the target hash</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreRecord</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the new action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterCreateLink</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">"Base" hash</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Link from the base to the target hash</div>
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="3">
                   <div class="fragment">delete_link(create_link_action_hash)</div>
                 </td>
-                <td>
-                  <div class="fragment">RegisterAgentActivity<br> StoreRecord<br> RegisterDeleteLink</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td>
-                  <div class="fragment">Author's public key <br> Hash of the new action <br> Hash of the deleted create link action hash</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Author's public key</div>
                 </td>
-                <td>
-                  <div class="fragment">Action <br> Record <br> Action</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Action</div>
                 </td>
-                <td>
-                  <div class="fragment">Hash of the action <br> - <br> Deleted link sent to tombstone</div>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the action</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">StoreRecord</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Hash of the new action</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">Record</div>
+                </td>
+                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                  <div class="fragment">-</div>
+                </td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 1px solid;">
+                  <div class="fragment">RegisterDeleteLink</div>
+                </td>
+                <td style="border-bottom: 1px solid;">
+                  <div class="fragment">Hash of the deleted create link action hash</div>
+                </td>
+                <td style="border-bottom: 1px solid;">
+                  <div class="fragment">Action</div>
+                </td>
+                <td style="border-bottom: 1px solid;">
+                  <div class="fragment">Deleted link sent to tombstone</div>
                 </td>
               </tr>
             </tbody>
