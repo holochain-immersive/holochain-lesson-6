@@ -266,7 +266,7 @@
                   <div class="fragment">New Record</div>
                 </td>
                 <td style="border-bottom: dotted;border-bottom-color: #808080;">
-                  <div class="fragment">New entry updates old entry</div>
+                  <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
@@ -469,7 +469,7 @@
             ### App Validation
 
             - Validation rules for a given entry or link type must go in the same zome as the type definition
-            - Private entries cannot be validated
+            - Private entries are only validated by its author, so you can't trust the private entries to be valid
             - Callback: `validate(dht_op: Op)`
           </fragment>
 
@@ -478,7 +478,19 @@
               <code class="rust" data-noescape>
 #[hdk_extern]
 pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
-  // Right now there is bunch of boilerplate here that's going to be replaced in the next version 
+      match op.to_type::&lt;EntryTypes, LinkTypes&gt;()? {
+        OpType::StoreEntry(store_entry) => match store_entry {
+            OpEntry::CreateEntry { app_entry, action } => match app_entry {
+                EntryTypes::Post(post) => Ok(ValidateCallbackResult::Valid), // All posts are valid
+            },
+            _ => Ok(ValidateCallbackResult::Valid),
+        },
+        OpType::RegisterUpdate(update_entry) |
+        OpType::RegisterDelete(delete_entry) |
+        OpType::RegisterCreateLink { .. } | 
+        OpType::RegisterDeleteLink { .. } |
+        OpType::StoreRecord(store_record) |
+        OpType::RegisterAgentActivity(agent_activity) => Ok(ValidateCallbackResult::Valid)
 }
               </code>
             </pre>
