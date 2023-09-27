@@ -141,12 +141,13 @@
   </head>
 
   <body>
-    <div class="reveal"> 
+    <div class="reveal">
       <div class="slides">
         <section>
           <h1>Validation Rules</h1>
         </section>
 
+        <!-- prettier-ignore -->
         <section language="markdown" animate="by-line with-ancestry">
           ### Validation Workflow
 
@@ -166,7 +167,16 @@
             2. All prospective hosts of the DHT Op validate  
         </section>
 
-        <section language="markdown" animate="by-line with-ancestry" style="font-size: 15px;width: 110%;margin-left:-5%;line-height:1.5em;">
+        <section
+          language="markdown"
+          animate="by-line with-ancestry"
+          style="
+            font-size: 15px;
+            width: 110%;
+            margin-left: -5%;
+            line-height: 1.5em;
+          "
+        >
           ## DHT Ops
           <table>
             <thead>
@@ -183,30 +193,30 @@
                 <td rowspan="3">
                   <div class="fragment">create_entry(entry)</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Author's public key</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreRecord</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
@@ -226,60 +236,62 @@
               </tr>
               <tr>
                 <td rowspan="5">
-                  <div class="fragment">update_entry(original_action_hash, new_entry)</div>
+                  <div class="fragment">
+                    update_entry(original_action_hash, new_entry)
+                  </div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Author's public key</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreRecord</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreEntry</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the entry</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterEntryUpdate</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the original entry</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Old entry is updated to new entry</div>
                 </td>
               </tr>
@@ -294,51 +306,53 @@
                   <div class="fragment">New action</div>
                 </td>
                 <td>
-                  <div class="fragment">Old action is updated to new action</div>
+                  <div class="fragment">
+                    Old action is updated to new action
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td rowspan="4">
                   <div class="fragment">delete_entry(action_hash)</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Author's public key</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreRecord</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the new action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterEntryDelete</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the deleted entry</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">New Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Old entry deleted by new action</div>
                 </td>
               </tr>
@@ -360,96 +374,102 @@
                 <td rowspan="3">
                   <div class="fragment">create_link(base, target, tag)</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Author's public key</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreRecord</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the new action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterCreateLink</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">"Base" hash</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
-                  <div class="fragment">Link from the base to the target hash</div>
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
+                  <div class="fragment">
+                    Link from the base to the target hash
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td rowspan="3">
-                  <div class="fragment">delete_link(create_link_action_hash)</div>
+                  <div class="fragment">
+                    delete_link(create_link_action_hash)
+                  </div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">RegisterAgentActivity</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Author's public key</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the action</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">StoreRecord</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Hash of the new action</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">Record</div>
                 </td>
-                <td style="border-bottom: dotted;border-bottom-color: #808080;">
+                <td style="border-bottom: dotted; border-bottom-color: #808080">
                   <div class="fragment">-</div>
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: 1px solid;">
+                <td style="border-bottom: 1px solid">
                   <div class="fragment">RegisterDeleteLink</div>
                 </td>
-                <td style="border-bottom: 1px solid;">
-                  <div class="fragment">Hash of the deleted create link action hash</div>
+                <td style="border-bottom: 1px solid">
+                  <div class="fragment">
+                    Hash of the deleted create link action hash
+                  </div>
                 </td>
-                <td style="border-bottom: 1px solid;">
+                <td style="border-bottom: 1px solid">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: 1px solid;">
+                <td style="border-bottom: 1px solid">
                   <div class="fragment">Deleted link sent to tombstone</div>
                 </td>
               </tr>
             </tbody>
           </table>
         </section>
-
+        <!-- prettier-ignore -->
         <section language="markdown" animate="by-line with-ancestry">
           ### System Validation
 
@@ -465,6 +485,7 @@
         </section>
 
         <section>
+          <!-- prettier-ignore -->
           <fragment language="markdown" animate="by-line with-ancestry">
             ### App Validation
 
@@ -478,33 +499,34 @@
               <code class="rust" data-noescape>
 #[hdk_extern]
 pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
-      match op.to_type::&lt;EntryTypes, LinkTypes&gt;()? {
-        OpType::StoreEntry(store_entry) => match store_entry {
+      match op.flattened::&lt;EntryTypes, LinkTypes&gt;()? {
+        FlatOp::StoreEntry(store_entry) => match store_entry {
             OpEntry::CreateEntry { app_entry, action } => match app_entry {
                 EntryTypes::Post(post) => Ok(ValidateCallbackResult::Valid), // All posts are valid
             },
             _ => Ok(ValidateCallbackResult::Valid),
         },
-        OpType::RegisterUpdate(update_entry) |
-        OpType::RegisterDelete(delete_entry) |
-        OpType::RegisterCreateLink { .. } | 
-        OpType::RegisterDeleteLink { .. } |
-        OpType::StoreRecord(store_record) |
-        OpType::RegisterAgentActivity(agent_activity) => Ok(ValidateCallbackResult::Valid)
+        FlatOp::RegisterUpdate(update_entry) |
+        FlatOp::RegisterDelete(delete_entry) |
+        FlatOp::RegisterCreateLink { .. } | 
+        FlatOp::RegisterDeleteLink { .. } |
+        FlatOp::StoreRecord(store_record) |
+        FlatOp::RegisterAgentActivity(agent_activity) => Ok(ValidateCallbackResult::Valid)
 }
               </code>
             </pre>
           </fragment>
 
+          <!-- prettier-ignore -->
           <fragment language="markdown" animate="by-line with-ancestry">
             - Three results possible:
               1. Valid
               2. Invalid: it specifies the reason why it failed
               3. Unresolved dependencies: Not enough data to complete the validation
           </fragment>
-
         </section>
 
+        <!-- prettier-ignore -->
         <section language="markdown" animate="by-line with-ancestry">
           ### Validation challenges
 
@@ -523,18 +545,22 @@ pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
             - `must_get_valid_record`
               - Returns the record
               - Never returns `None`, rather the validation has unresolved dependencies
+            - `must_get_agent_activity`
+              - Returns the source chain actions stored in the DHT for a given agent
+              - Needs the chain_top action ID for the given agent
+              - Never returns `None`, rather the validation has unresolved dependencies
         </section>
 
-
-        <section >
+        <section>
+          <!-- prettier-ignore -->
           <fragment language="markdown" animate="by-line with-ancestry">
           ### Genesis Self-Check
 
           - Callback executed when the cell is instantiated
           - If it fails, the app for that cell will fail to install
         </fragment>
-        <fragment animate="by-line with-ancestry separate-comments balanced">
-          <pre>
+          <fragment animate="by-line with-ancestry separate-comments balanced">
+            <pre>
             <code class="rust" data-noescape>
 #[hdk_extern]
 pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;ValidateCallbackResult&gt; {
@@ -542,8 +568,7 @@ pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;Validat
 }
             </code>
           </pre>
-        </fragment>
-
+          </fragment>
         </section>
 
         <section>
@@ -567,7 +592,7 @@ pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;Validat
           RevealHighlight,
           RevealNotes,
           RevealAnimateFragments,
-          RevealEliminateEmptyLines
+          RevealEliminateEmptyLines,
         ],
       });
       deck.initialize();
