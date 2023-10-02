@@ -1,132 +1,18 @@
-<!DOCTYPE html><html lang="en"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="Description" content="Put your description here.">
-    <base href="/">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="Description" content="Put your description here." />
+    <base href="/" />
 
-    <style>
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-        background-color: #ededed;
-        --r-main-font-size: 24px;
-        --r-heading-margin: 20px 0 12px 0;
-      }
-
-      section {
-        top: 10px !important;
-      }
-
-      .hljs-keyword {
-        color: #817eed !important;
-      }
-
-      .hljs-literal {
-        color: #ff90b8 !important;
-      }
-
-      .slides {
-        width: 75% !important;
-      }
-
-      .container {
-        top: 0 !important;
-        display: flex !important;
-        flex-direction: row !important;
-      }
-      .column {
-        display: flex;
-        flex-direction: column;
-      }
-      .row {
-        display: flex;
-        flex-direction: row;
-      }
-
-      ul {
-        width: 100%;
-      }
-
-      section {
-        text-align: left;
-      }
-
-      .popover {
-        position: absolute;
-        background-color: #4d4d4d;
-        padding: 1rem 2rem;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-        border-radius: 10px;
-        width: auto;
-        transform: translate(16px, -15px);
-        max-width: 600px;
-        white-space: break-spaces;
-      }
-      .popover:after {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: -8px;
-        border-style: solid;
-        border-width: 18px 12px 0;
-        border-color: #4d4d4d transparent;
-        display: block;
-        width: 0;
-        z-index: 1;
-        transform: translate(-50%, 50%) rotate(90deg);
-      }
-
-      .popover .hljs-meta,
-      .popover .hljs-class,
-      .popover .hljs-symbol,
-      .popover .hljs-keyword,
-      .popover .hljs-string,
-      .popover .hljs-title {
-        color: rgb(221, 221, 221) !important;
-        font-weight: normal;
-      }
-
-      .reveal pre code {
-        max-height: 800px !important;
-      }
-
-      .dna {
-        background-color: green;
-      }
-      .zome {
-        background-color: blue;
-      }
-      .coordinator-zomes {
-        background-color: lightblue;
-      }
-
-      .dna,
-      .cell,
-      .zome,
-      .coordinator-zomes,
-      .source-chain,
-      .happ-bundle,
-      .box,
-      .dna-bundle,
-      .dht-shard,
-      .conductor,
-      .happ {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        border-width: 3px;
-        border-color: rgb(209, 209, 209);
-        border-style: solid;
-      }
-    </style>
-    <link rel="stylesheet" href="holochain-lesson-6/bce6cb85.css">
-
-    <link rel="stylesheet" href="holochain-lesson-6/5265d60d.css">
-    <link rel="stylesheet" href="holochain-lesson-6/86125abe.css">
+    
     <title>Lesson 6</title>
+    <script type="module" crossorigin src="/holochain-lesson-6/assets/index-d4112844.js"></script>
+    <link rel="stylesheet" href="/holochain-lesson-6/assets/index-d9e0dbf5.css">
   </head>
 
   <body>
@@ -152,16 +38,16 @@
           ### Validation callback function context
 
           - The function `validate` is called in two contexts
-            1. The author validates
+            1. The author validates their own recods before publishing them
             2. All prospective hosts of the DHT Op validate  
         </section>
 
-        <section language="markdown" animate="by-line with-ancestry" style="
-            font-size: 15px;
-            width: 110%;
-            margin-left: -5%;
-            line-height: 1.5em;
-          ">
+        <!-- prettier-ignore -->
+        <section
+          language="markdown"
+          animate="by-line with-ancestry"
+          style="font-size: 15px; width: 120%; margin-left: -5%; line-height: 1.5em;"
+        >
           ## DHT Ops
           <table>
             <thead>
@@ -479,23 +365,27 @@
             - Callback: `validate(dht_op: Op)`
           </fragment>
 
-          <fragment animate="by-line with-ancestry separate-comments balanced">
-            <pre>              <code class="rust" data-noescape="">
+          <fragment>
+            <pre>
+              <code class="rust" data-noescape data-trim
+              animate="by-line balanced with-ancestry separate-comments trailing-comments-in-popover strike-on-error-in-comment"
+              >
 #[hdk_extern]
-pub fn validate(op: Op) -&gt; ExternResult&lt;ValidateCallbackResult&gt; {
-      match op.flattened::&lt;EntryTypes, LinkTypes&gt;()? {
-        FlatOp::StoreEntry(store_entry) =&gt; match store_entry {
-            OpEntry::CreateEntry { app_entry, action } =&gt; match app_entry {
-                EntryTypes::Post(post) =&gt; Ok(ValidateCallbackResult::Valid), // All posts are valid
-            },
-            _ =&gt; Ok(ValidateCallbackResult::Valid),
-        },
-        FlatOp::RegisterUpdate(update_entry) |
-        FlatOp::RegisterDelete(delete_entry) |
-        FlatOp::RegisterCreateLink { .. } | 
-        FlatOp::RegisterDeleteLink { .. } |
-        FlatOp::StoreRecord(store_record) |
-        FlatOp::RegisterAgentActivity(agent_activity) =&gt; Ok(ValidateCallbackResult::Valid)
+pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
+  match op.flattened::&lt;EntryTypes, LinkTypes&gt;()? {
+    FlatOp::StoreEntry(store_entry) => match store_entry {
+      OpEntry::CreateEntry { app_entry, action } => match app_entry {
+        EntryTypes::Post(post) => Ok(ValidateCallbackResult::Valid), // All posts are valid
+      },
+      _ => Ok(ValidateCallbackResult::Valid),
+    },
+    FlatOp::RegisterUpdate(update_entry) |
+    FlatOp::RegisterDelete(delete_entry) |
+    FlatOp::RegisterCreateLink { .. } | 
+    FlatOp::RegisterDeleteLink { .. } |
+    FlatOp::StoreRecord(store_record) |
+    FlatOp::RegisterAgentActivity(agent_activity) => Ok(ValidateCallbackResult::Valid)
+  }
 }
               </code>
             </pre>
@@ -543,10 +433,13 @@ pub fn validate(op: Op) -&gt; ExternResult&lt;ValidateCallbackResult&gt; {
           - Callback executed when the cell is instantiated
           - If it fails, the app for that cell will fail to install
         </fragment>
-          <fragment animate="by-line with-ancestry separate-comments balanced">
-            <pre>            <code class="rust" data-noescape="">
+          <fragment>
+            <pre>
+            <code class="rust" data-noescape data-trim
+            animate="by-line balanced with-ancestry separate-comments trailing-comments-in-popover strike-on-error-in-comment"
+            >
 #[hdk_extern]
-pub fn genesis_self_check(data: GenesisSelfCheckData) -&gt; ExternResult&lt;ValidateCallbackResult&gt; {
+pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;ValidateCallbackResult&gt; {
     // Check data.agent_key, data.membrane_proof
 }
             </code>
@@ -561,6 +454,5 @@ pub fn genesis_self_check(data: GenesisSelfCheckData) -&gt; ExternResult&lt;Vali
     </div>
 
     
-  
-
-<script type="module" src="./holochain-lesson-6/68f4aae5.js"></script></body></html>
+  </body>
+</html>
