@@ -29,7 +29,7 @@
         <section language="markdown" animate="by-line with-ancestry">
           ### Validation Workflow
 
-          - Validation needs to be deterministic: same result no matter who runs it and when.
+          - Validation needs to be deterministic: same result no matter who runs it and when
           - After an action is committed, it is transformed into different DHT Operations (DHT Ops)
           - Then, those DHT Ops are published to the different neighborhoods in the DHT
           - When those nodes receive that publish, they add it to their validation queue
@@ -52,6 +52,9 @@
           style="font-size: 15px; width: 120%; margin-left: -5%; line-height: 1.5em;"
         >
           ## DHT Ops
+          <!-- TODO: First column: which query are we servicing? And what do I expect to get back from the query? -->
+          <!-- TODO: what about private entries? -->
+          <!-- TODO: relate this to the slide of the validate callback -->
           <table>
             <thead>
               <tr>
@@ -276,16 +279,16 @@
                 </td>
               </tr>
               <tr>
-                <td style="border-bottom: dotted; border-bottom-color: #808080">
+                <td style="border-bottom-color: #808080">
                   <div class="fragment">RegisterCreateLink</div>
                 </td>
-                <td style="border-bottom: dotted; border-bottom-color: #808080">
+                <td style="border-bottom-color: #808080">
                   <div class="fragment">"Base" hash</div>
                 </td>
-                <td style="border-bottom: dotted; border-bottom-color: #808080">
+                <td style="border-bottom-color: #808080">
                   <div class="fragment">Action</div>
                 </td>
-                <td style="border-bottom: dotted; border-bottom-color: #808080">
+                <td style="border-bottom-color: #808080">
                   <div class="fragment">
                     Link from the base to the target hash
                   </div>
@@ -361,13 +364,23 @@
         <section>
           <!-- prettier-ignore -->
           <fragment language="markdown" animate="by-line with-ancestry">
-            ### App Validation
+            ### App Validation (I)
 
             - Validation rules for a given entry or link type must go in the same zome as the type definition
             - Private entries are only validated by its author, so you can't trust the private entries to be valid
-            - Callback: `validate(dht_op: Op)`
+            - Callback in your integrity zome: `validate(dht_op: Op)`
+            - Three results possible:
+              1. Valid
+              2. Invalid: it specifies the reason why it failed
+              3. Unresolved dependencies: not enough data to complete the validation
           </fragment>
+        </section>
 
+        <section>
+          <!-- prettier-ignore -->
+          <fragment language="markdown" animate="by-line with-ancestry">
+            ### App Validation (II)
+          </fragment>
           <fragment>
             <pre>
               <code class="rust" data-noescape data-trim
@@ -375,31 +388,38 @@
               >
 #[hdk_extern]
 pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
-  match op.flattened::&lt;EntryTypes, LinkTypes&gt;()? {
+  match op.flattened::&lt;EntryTypes, LinkTypes&gt;()? { // "flattened" converts the complex "Op"
+                                                   // structure into a much simpler "FlatOp"
     FlatOp::StoreEntry(store_entry) => match store_entry {
-      OpEntry::CreateEntry { app_entry, action } => match app_entry {
-        EntryTypes::Post(post) => Ok(ValidateCallbackResult::Valid), // All posts are valid
+      OpEntry::CreateEntry { app_entry, action } => match app_entry { // "app_entry" is your own 
+                                                                      // app defined EntryTypes
+        EntryTypes::Post(post) => match post.content.len() &lt;= 180 { // Only posts of 180 
+                                                                    // characters or less 
+                                                                    // are valid  
+          true => Ok(ValidateCallbackResult::Valid),
+          false => Ok(ValidateCallbackResult::Invalid(String::from("Post is too long")))
+        },
+        EntryTypes::Comment(comment) => Ok(ValidateCallbackResult::Valid), 
       },
+      OpEntry::UpdateEntry { app_entry, action, original_action_hash, original_entry_hash } => 
+        Ok(ValidateCallbackResult::Valid), // app_entry will be exactly the same as above
+      _ => Ok(ValidateCallbackResult::Valid),
+    },
+    FlatOp::StoreRecord(store_record) => match store_record {
+      OpRecord::CreateEntry { app_entry, action, } => Ok(ValidateCallbackResult::Valid), 
+      OpRecord::UpdateEntry { app_entry, action, original_action_hash, original_entry_hash } =>
+        Ok(ValidateCallbackResult::Valid), // app_entry will be exactly the same as above
       _ => Ok(ValidateCallbackResult::Valid),
     },
     FlatOp::RegisterUpdate(update_entry) |
     FlatOp::RegisterDelete(delete_entry) |
     FlatOp::RegisterCreateLink { .. } | 
     FlatOp::RegisterDeleteLink { .. } |
-    FlatOp::StoreRecord(store_record) |
     FlatOp::RegisterAgentActivity(agent_activity) => Ok(ValidateCallbackResult::Valid)
   }
 }
               </code>
             </pre>
-          </fragment>
-
-          <!-- prettier-ignore -->
-          <fragment language="markdown" animate="by-line with-ancestry">
-            - Three results possible:
-              1. Valid
-              2. Invalid: it specifies the reason why it failed
-              3. Unresolved dependencies: Not enough data to complete the validation
           </fragment>
         </section>
 
@@ -412,6 +432,7 @@ pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
               - They attempt to return a current list of updates and deletes
             - `get_links` is forbidden
             - `get_agent_activity` is forbidden unless bounded by action hashes
+            - `agent_info()` is forbidden, as its result depends on which cell it runs
           - Deterministic alternatives:
             - `must_get_entry`
               - Only returns the entry, not its action
@@ -435,6 +456,11 @@ pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
 
           - Callback executed when the cell is instantiated
           - If it fails, the app for that cell will fail to install
+          - It does not have access to any network calls (get, get_details, etc.) because it's run before joining other peers in the network
+          - This is not attacker-proof
+            - A bad actor can just not run this callback and try to join the network either way
+            - The bad actor will be identified when they propagate their genesis actions (`Dna`, `AgentValidationPkg` and `Create` of the `AgentPubKey`) and the other peers run the normal app validation `validate(op: Op)` and see that the `Create` of the `AgentPubKey` is invalid
+            - So genesis self-check is to prevent good actor to unintentionally join a network when they actually didn't have the permission to do so
         </fragment>
           <fragment>
             <pre>
@@ -445,6 +471,64 @@ pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; {
 pub fn genesis_self_check(data: GenesisSelfCheckData) -> ExternResult&lt;ValidateCallbackResult&gt; {
     // Check data.agent_key, data.membrane_proof
 }
+            </code>
+          </pre>
+          </fragment>
+        </section>
+
+        <section>
+          <!-- prettier-ignore -->
+          <fragment language="markdown" animate="by-line with-ancestry">
+            ### Preventing unwanted agents from joining the network (I)
+
+            - Any request to create a cell receives a membrane proof parameter
+            - When any cell is instantiated, it generates three records:
+              - Dna
+              - AgentValidationPkg
+                - Includes the membrane proof that the agent provided when instantiating the cell
+              - Create
+                - The `AgentPubKey` of the agent as the entry
+            - If the third record fails validation, the network doesn't allow that agent to join it
+          </fragment>
+        </section>
+
+        <section>
+          <!-- prettier-ignore -->
+          <fragment language="markdown" animate="by-line with-ancestry">
+            ### Preventing unwanted agents from joining the network (II)
+
+          </fragment>
+          <fragment>
+            <pre>
+            <code class="rust" data-noescape data-trim
+            animate="by-line balanced with-ancestry separate-comments trailing-comments-in-popover strike-on-error-in-comment"
+            >
+fn is_membrane_proof_valid(
+  for_agent: AgentPubKey,
+  membrane_proof: Option&lt;MembraneProof&gt;,
+) -> ExternResult&lt;ValidateCallbackResult&gt; {
+  // Check that the agent is allowed to join the network
+}
+
+#[hdk_extern]
+pub fn validate(op: Op) -> ExternResult&lt;ValidateCallbackResult&gt; { // Normal validate callback
+  if let FlatOp::RegisterAgentActivity(
+    OpActivity::CreateAgent { agent, action }
+  ) = op.flattened::&lt;EntryTypes, LinkTypes&gt;()? {
+    let previous_action = must_get_action(action.prev_action)?; // Getting the previous record,
+                                                                // which must be the 
+                                                                // `AgentValidationPkg`
+    match previous_action.action() {
+      Action::AgentValidationPkg(pkg) => is_membrane_proof_valid(agent, pkg.membrane_proof),
+      _ => Ok(ValidateCallbackResult::Invalid(
+            "The previous action for a `CreateAgent` action must be an `AgentValidationPkg`"
+            .to_string(),
+      ))
+    }
+  }
+  // ... rest of the validation code
+}
+
             </code>
           </pre>
           </fragment>
